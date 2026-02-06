@@ -34,7 +34,7 @@
 
 - MCP-compliant server exposing SSH capabilities
 - Execute shell commands on remote Linux and Windows systems
-- Secure authentication via password or SSH key
+- Secure authentication via password or SSH key (with passphrase support)
 - Built with TypeScript and the official MCP SDK
 - **Configurable timeout protection** with automatic process abortion
 - **Graceful timeout handling** - attempts to kill hanging processes before closing connections
@@ -89,6 +89,7 @@ You can configure your IDE or LLM like Cursor, Windsurf, Claude Desktop to use t
 - `port`: SSH port (default: 22)
 - `password`: SSH password (or use `key` for key-based auth)
 - `key`: Path to private SSH key
+- `passphrase`: Passphrase for encrypted private SSH keys (use with `key`)
 - `sudoPassword`: Password for sudo elevation (when executing commands with sudo)
 - `suPassword`: Password for su elevation (when you need a persistent root shell)
 - `timeout`: Command execution timeout in milliseconds (default: 60000ms = 1 minute)
@@ -110,6 +111,7 @@ You can configure your IDE or LLM like Cursor, Windsurf, Claude Desktop to use t
                 "--user=root",
                 "--password=pass",
                 "--key=path/to/key",
+                "--passphrase=your_key_passphrase",
                 "--timeout=30000",
                 "--maxChars=none"
             ]
@@ -138,6 +140,11 @@ claude mcp add --transport stdio ssh-mcp -- npx -y ssh-mcp -- --host=192.168.1.1
 **With SSH Key Authentication:**
 ```bash
 claude mcp add --transport stdio ssh-mcp -- npx -y ssh-mcp -- --host=example.com --user=root --key=/path/to/private/key
+```
+
+**With SSH Key Authentication (Encrypted Key with Passphrase):**
+```bash
+claude mcp add --transport stdio ssh-mcp -- npx -y ssh-mcp -- --host=example.com --user=root --key=/path/to/private/key --passphrase=your_key_passphrase
 ```
 
 **With Custom Timeout and No Character Limit:**
@@ -201,4 +208,4 @@ This project follows a [Code of Conduct](./CODE_OF_CONDUCT.md) to ensure a welco
 
 ## Support
 
-If you find SSH MCP Server helpful, consider starring the repository or contributing! Pull requests and feedback are welcome. 
+If you find SSH MCP Server helpful, consider starring the repository or contributing! Pull requests and feedback are welcome.
